@@ -2,7 +2,7 @@
 <div class="row">
   <h1 class="text-center">Create New Campground</h1>
   <div class="col-6 offset-3">
-    <form method="POST" action="/campgrounds">
+    <form method="POST" action="/campgrounds" class="validate" novalidate>
       <div class="mb-3">
         <label class="form-label" for="title">Title</label>
         <input
@@ -10,21 +10,27 @@
           id="title"
           name="campground[title]"
           type="text"
+          required
         />
+        <div class="invalid-feedback">Please enter title</div>
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="price">Campground Price</label>
         <div class="input-group">
           <span class="input-group-text" id="basic-addon1">$</span>
           <input
-            type="text"
+            type="string"
             id="price"
             name="campground[price]"
             class="form-control"
             placeholder="Price"
             aria-label="Price"
             aria-describedby="basic-addon1"
+            required
           />
+          <div class="invalid-feedback">Please enter price</div>
+          <div class="valid-feedback">Looks good!</div>
         </div>
       </div>
       <div class="mb-3">
@@ -34,7 +40,10 @@
           id="location"
           name="campground[location]"
           type="text"
+          required
         />
+        <div class="invalid-feedback">Please enter location</div>
+        <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
@@ -44,7 +53,10 @@
           id="image"
           name="campground[image]"
           type="text"
+          required
         />
+        <div class="invalid-feedback">Please enter Image source</div>
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
@@ -53,7 +65,10 @@
           id="description"
           name="campground[description]"
           type="text"
+          required
         ></textarea>
+        <div class="invalid-feedback">Please enter Description</div>
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3"><button class="btn btn-success">Submit</button></div>
     </form>
