@@ -1,4 +1,5 @@
 const Joi = require("joi");
+
 module.exports.validateSchema = Joi.object({
   campground: Joi.object({
     title: Joi.string().required(),
