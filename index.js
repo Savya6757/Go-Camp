@@ -5,6 +5,8 @@ const ejsMethod = require("ejs-mate");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const ExpressError = require("./utils/ExpressError");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const campgroundRouter = require("./routes/campground");
 const reviewsRouter = require("./routes/reviews");
@@ -24,13 +26,28 @@ app.engine("ejs", ejsMethod);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+
+const sessionConfig = {
+  secret: "changethislater",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+});
 
 app.use("/campgrounds", campgroundRouter);
 app.use("/campgrounds/:id/reviews", reviewsRouter);
@@ -48,9 +65,7 @@ app.use((err, req, res, next) => {
   if (!err.message) {
     err.message = "Oops Something Went Wrong";
   }
-  res.status(statusCode).render("error", {
-    err,
-  });
+  res.status(statusCode).render("error", { err });
 });
 
 app.listen(3000, () => {
