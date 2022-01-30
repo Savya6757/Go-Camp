@@ -1,8 +1,14 @@
-/* body{
-    background-color: aqua;
+/* body {
+  background-color: aqua;
 } */
-.card-image{
-    width:100%;
-    height: 15rem;
-    object-fit: cover;
+.card-image {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+}
+
+.btn-close:active,
+.btn-close:hover {
+  outline: 0;
+  box-shadow: none;
 }
