@@ -1,7 +1,5 @@
 <% layout("layout/boilerplate") %>
-  <p>
-    <a href="/campgrounds" class="btn btn-primary back-btn"><i class="fa-solid fa-arrow-left px-1"></i>Go Back</a>
-  </p>
+  <a href="/campgrounds" class="btn btn-primary back-btn mb-3"><i class="fa-solid fa-arrow-left px-1"></i>Go Back</a>
   <div class="row">
     <div class="col-6 offset-1">
       <div class="card my-2">
@@ -22,12 +20,14 @@
           <li class="list-group-item">Price : <%= camp.price %>
           </li>
         </ul>
-        <div class="card-body">
-          <a class="btn btn-warning mb-3" href="/campgrounds/<%= camp._id %>/edit">Edit Information</a>
-          <form method="post" action="/campgrounds/<%= camp._id %>?_method=DELETE">
-            <Button class="btn btn-danger">Delete</Button>
-          </form>
-        </div>
+        <% if(currentUser && camp.owner.equals(currentUser._id)){ %>
+          <div class="card-body">
+            <a class="btn btn-warning mb-3" href="/campgrounds/<%= camp._id %>/edit">Edit Information</a>
+            <form method="post" action="/campgrounds/<%= camp._id %>?_method=DELETE">
+              <Button class="btn btn-danger">Delete</Button>
+            </form>
+          </div>
+          <% } %>
       </div>
     </div>
 
