@@ -20,6 +20,7 @@ router.get(
   "/",
   catchAsync(async (req, res) => {
     const campgrounds = await Campground.find({});
+    delete req.session.lastPage;
     res.render("campgrounds/index", {
       campgrounds,
     });
