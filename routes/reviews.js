@@ -3,14 +3,16 @@ const router = express.Router({ mergeParams: true });
 const { catchAsync } = require("../utils/catchAsync");
 const Campground = require("../models/campground");
 const Review = require("../models/reviews");
-const { reviewValidation } = require("../middleware");
+const { reviewValidation, isLoggedIn, isOwnerReview } = require("../middleware");
 
 router.post(
   "/",
+  isLoggedIn,
   reviewValidation,
   catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
+    review.owner = req.user._id;
     campground.reviews.push(review);
     await review.save();
     await campground.save();
@@ -21,6 +23,8 @@ router.post(
 
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isOwnerReview,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });

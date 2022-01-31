@@ -1,8 +1,7 @@
 const ExpressError = require("./utils/ExpressError");
 const { validateSchema, reviewSchema } = require("./schemas");
 const Campground = require("./models/campground");
-
-//* campgrounds middlewares --------------------------------
+const Review = require("./models/reviews");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -33,7 +32,15 @@ module.exports.isOwner = async (req, res, next) => {
   next();
 };
 
-//* reviews middlewares ----------------------------------------
+module.exports.isOwnerReview = async (req, res, next) => {
+  const { id, reviewId } = req.params;
+  const review = await Review.findById(reviewId);
+  if (!review.owner.equals(req.user._id)) {
+    req.flash("error", "You do not have permission !");
+    return res.redirect(`/campgrounds/${id}`);
+  }
+  next();
+};
 
 module.exports.reviewValidation = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
