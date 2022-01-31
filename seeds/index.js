@@ -14,8 +14,7 @@ mongoose
     console.log(e);
   });
 
-const randomFromArray = (array) =>
-  array[Math.floor(Math.random() * array.length)];
+const randomFromArray = (array) => array[Math.floor(Math.random() * array.length)];
 
 async function seedImg() {
   try {
@@ -37,6 +36,7 @@ const seedData = async () => {
     const random = Math.floor(Math.random() * 1000);
     const price = parseFloat((Math.random() * 40 + 10).toFixed(2));
     const camp = new Campground({
+      owner: "61f7a797f97e792989677734",
       location: `${cities[random].city}, ${cities[random].state}`,
       title: `${randomFromArray(descriptors)} ${randomFromArray(places)}`,
       image: await seedImg(),

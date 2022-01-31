@@ -68,9 +68,9 @@ app.get("/fakeuser", async (req, res) => {
   res.send(userRegister);
 });
 
+app.use("/", userRoute);
 app.use("/campgrounds", campgroundRoute);
 app.use("/campgrounds/:id/reviews", reviewsRoute);
-app.use("/", userRoute);
 
 app.get("/", (req, res) => {
   res.render("campgrounds/home");

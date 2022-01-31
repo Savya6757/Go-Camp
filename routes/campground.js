@@ -30,6 +30,19 @@ router.get("/new", isLoggedIn, (req, res) => {
   res.render("campgrounds/new");
 });
 
+router.post(
+  "/",
+  campgroundValidation,
+  isLoggedIn,
+  catchAsync(async (req, res, next) => {
+    const newCamp = new Campground(req.body.campground);
+    newCamp.owner = req.user._id;
+    await newCamp.save();
+    req.flash("success", "Successfully created campground");
+    res.redirect(`/campgrounds/${newCamp._id}`);
+  })
+);
+
 router.get(
   "/:id/edit",
   isLoggedIn,
@@ -57,18 +70,6 @@ router.put(
   })
 );
 
-router.post(
-  "/",
-  campgroundValidation,
-  isLoggedIn,
-  catchAsync(async (req, res, next) => {
-    const newCamp = new Campground(req.body.campground);
-    await newCamp.save();
-    req.flash("success", "Successfully created campground");
-    res.redirect(`/campgrounds/${newCamp._id}`);
-  })
-);
-
 router.delete(
   "/:id",
   isLoggedIn,
@@ -84,7 +85,7 @@ router.get(
   "/:id",
   catchAsync(async (req, res) => {
     const { id } = req.params;
-    const camp = await Campground.findById(id).populate("reviews");
+    const camp = await Campground.findById(id).populate("reviews").populate("owner");
     if (!camp) {
       req.flash("error", "Cannot find that campground");
       res.redirect("/campgrounds");
