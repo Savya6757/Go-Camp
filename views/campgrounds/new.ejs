@@ -3,7 +3,7 @@
   <div class="row">
     <h1 class="text-center">Create New Campground</h1>
     <div class="col-6 offset-3">
-      <form method="POST" action="/campgrounds" class="validate" novalidate>
+      <form method="POST" action="/campgrounds" class="validate" novalidate enctype="multipart/form-data">
         <div class="mb-3">
           <label class="form-label" for="title">Title</label>
           <input class="form-control" id="title" name="campground[title]" type="text" required />
@@ -14,8 +14,8 @@
           <label class="form-label" for="price">Campground Price</label>
           <div class="input-group">
             <span class="input-group-text" id="basic-addon1">$</span>
-            <input type="string" id="price" name="campground[price]" class="form-control" placeholder="Price" aria-label="Price"
-              aria-describedby="basic-addon1" required />
+            <input type="string" id="price" name="campground[price]" class="form-control" placeholder="Price"
+              aria-label="Price" aria-describedby="basic-addon1" required />
             <div class="invalid-feedback">Please enter price</div>
             <div class="valid-feedback">Looks good!</div>
           </div>
@@ -28,19 +28,19 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="image">Image Source</label>
-          <input class="form-control" id="image" name="campground[image]" type="text" required />
-          <div class="invalid-feedback">Please enter Image source</div>
-          <div class="valid-feedback">Looks good!</div>
+          <label class="form-label" for="image">Choose Image</label>
+          <input type="file" multiple class="form-control validate" name="image" id="image">
+          <div class="invalid-feedback">You can only upload a maximum of 2 files</div>
+          <div class="invalid-feedback">Max images : 5 / total size : 5mb</div>
         </div>
         <div class="mb-3">
           <label class="form-label" for="description">Description</label>
-          <textarea class="form-control" id="description" name="campground[description]" type="text" required></textarea>
+          <textarea class="form-control" id="description" name="campground[description]" type="text"
+            required></textarea>
           <div class="invalid-feedback">Please enter Description</div>
           <div class="valid-feedback">Looks good!</div>
         </div>
-        <div class="mb-3"><button class="btn btn-success">Submit</button></div>
+        <div class="mb-3"><button class="btn btn-success submit">Submit</button></div>
       </form>
-      <a href="/campgrounds" class="btn btn-primary">Go back</a>
     </div>
   </div>

@@ -51,3 +51,20 @@ module.exports.reviewValidation = (req, res, next) => {
     next();
   }
 };
+
+module.exports.fileCheck = (req, res, next) => {
+  const { id } = req.params;
+  if (req.files.length > 3) {
+    req.flash("error", "Too many files");
+    return res.redirect(`/campgrounds/${id}/edit`);
+  }
+  let size = 0;
+  for (let img of req.files) {
+    size += img.size;
+  }
+  if (size > 5000000) {
+    req.flash("error", "Too Large files");
+    return res.redirect(`/campgrounds/${id}/edit`);
+  }
+  next();
+};
