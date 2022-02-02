@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const Campground = require("../models/campground");
 const mongoose = require("mongoose");
-const cities = require("./cities");
+const { indianCities } = require("./indianCities");
 const axios = require("axios");
 const { descriptors, places } = require("./seedsHelper");
 
@@ -41,11 +41,11 @@ async function seedImg() {
 
 const seedData = async () => {
   await Campground.deleteMany({});
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 200; i++) {
     const random = Math.floor(Math.random() * 1000);
     const price = parseFloat((Math.random() * 40 + 10).toFixed(2));
     // const data = await seedImg();
-    const location = `${cities[random].city}, ${cities[random].state}`;
+    const location = `${indianCities[random].name}, ${indianCities[random].state}`;
 
     const geoLocation = await geoCoder
       .forwardGeocode({
@@ -64,12 +64,12 @@ const seedData = async () => {
       price,
       images: [
         {
-          url: "https://res.cloudinary.com/dqtx8kikg/image/upload/v1643704848/YelpCamp/zlmwmzanxylyhx4k2r6p.jpg",
-          name: "YelpCamp/zlmwmzanxylyhx4k2r6p",
+          url: "https://res.cloudinary.com/dqtx8kikg/image/upload/v1643809925/YelpCamp/mainCamp_rvbo8y.jpg",
+          name: "YelpCamp/mainCamp_rvbo8y",
         },
         {
-          url: "https://res.cloudinary.com/dqtx8kikg/image/upload/v1643737525/YelpCamp/eykvqlj0gsmwfqavy9hs.jpg",
-          name: "YelpCamp/eykvqlj0gsmwfqavy9hs",
+          url: "https://res.cloudinary.com/dqtx8kikg/image/upload/v1643811183/YelpCamp/hillsCamp_cuyeoo.jpg",
+          name: "YelpCamp/hillsCamp_cuyeoo.jpg",
         },
       ],
     });
