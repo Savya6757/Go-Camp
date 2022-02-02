@@ -54,7 +54,7 @@
     </div>
 
     <div class="col-md-5 offset-1">
-      <div id='map' class="my-2" style='width: 100%; height: 300px;'></div>
+      <div id='map' class="my-2"></div>
       <% if(currentUser){ %>
         <h3>Leave a review</h3>
         <form action="/campgrounds/<%= camp._id %>/reviews" class="validate" method="post" novalidate>
@@ -115,6 +115,6 @@
 
   <script>
     const mapMarker = "<%-process.env.MAP_BOX_TOKEN%>"
-    const campground = <% - JSON.stringify(camp) %>
+    const campground = <%- JSON.stringify(camp) %>
   </script>
   <script src="/js/showMap.js"></script>
