@@ -1,8 +1,16 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const Campground = require("../models/campground");
 const mongoose = require("mongoose");
 const cities = require("./cities");
 const axios = require("axios");
 const { descriptors, places } = require("./seedsHelper");
+
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapboxToken = process.env.MAP_BOX_TOKEN;
+const geoCoder = mbxGeocoding({ accessToken: mapboxToken });
 
 mongoose
   .connect("mongodb://localhost:27017/yelp-camp")
@@ -37,10 +45,20 @@ const seedData = async () => {
     const random = Math.floor(Math.random() * 1000);
     const price = parseFloat((Math.random() * 40 + 10).toFixed(2));
     // const data = await seedImg();
+    const location = `${cities[random].city}, ${cities[random].state}`;
+
+    const geoLocation = await geoCoder
+      .forwardGeocode({
+        query: location,
+        limit: 1,
+      })
+      .send();
+
     const camp = new Campground({
       owner: "61f7a797f97e792989677734",
-      location: `${cities[random].city}, ${cities[random].state}`,
+      location,
       title: `${randomFromArray(descriptors)} ${randomFromArray(places)}`,
+      geometry: geoLocation.body.features[0].geometry,
       description:
         "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam ut, aperiam aliquam et, laboriosam praesentium ullam culpa, ipsam atque quas cupiditate cum rerum tenetur delectus! Debitis obcaecati fuga velit? Rerum?",
       price,
@@ -60,3 +78,15 @@ const seedData = async () => {
 };
 
 seedData().then(() => mongoose.connection.close());
+
+// geometry: {
+//     type: {
+//       type: String,
+//       enum: ["Point"],
+//       required: true,
+//     },
+//     coordinates: {
+//       type: [Number],
+//       required: true,
+//     },
+//   },

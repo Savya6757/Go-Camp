@@ -2,12 +2,8 @@
   <link rel="stylesheet" href="/css/star.css">
   <a href="/campgrounds" class="btn btn-primary back-btn mb-3"><i class="fa-solid fa-arrow-left px-1"></i>Go Back</a>
   <div class="row">
-    <div class="col-md-6 offset-md-1">
-
-
-
+    <div class="col-md-5 offset-md-1">
       <div class="card my-2">
-
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <% for(img of camp.images){ %>
@@ -57,7 +53,8 @@
       </div>
     </div>
 
-    <div class="col-md-4 offset-md-1">
+    <div class="col-md-5 offset-1">
+      <div id='map' class="my-2" style='width: 100%; height: 300px;'></div>
       <% if(currentUser){ %>
         <h3>Leave a review</h3>
         <form action="/campgrounds/<%= camp._id %>/reviews" class="validate" method="post" novalidate>
@@ -115,3 +112,9 @@
             <% } %>
     </div>
   </div>
+
+  <script>
+    const mapMarker = "<%-process.env.MAP_BOX_TOKEN%>"
+    const campground = <%- JSON.stringify(camp) %>
+  </script>
+  <script src="/js/showMap.js"></script>

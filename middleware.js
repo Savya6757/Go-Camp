@@ -54,7 +54,7 @@ module.exports.reviewValidation = (req, res, next) => {
 
 module.exports.fileCheck = (req, res, next) => {
   const { id } = req.params;
-  if (req.files.length > 3) {
+  if (req.files.length > 5) {
     req.flash("error", "Too many files");
     return res.redirect(`/campgrounds/${id}/edit`);
   }
