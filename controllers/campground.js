@@ -6,11 +6,30 @@ const { cloudinary } = require("../cloudinary/index");
 
 //* all campgrounds page
 module.exports.index = async (req, res) => {
-  const campgrounds = await Campground.find({});
   delete req.session.lastPage;
-  res.render("campgrounds/index", {
-    campgrounds,
-  });
+  const campForMap = await Campground.find({});
+  if (!req.query.page) {
+    const campgrounds = await Campground.paginate(
+      {},
+      {
+        limit: 20,
+      }
+    );
+    res.render("campgrounds/index", {
+      campgrounds,
+      campForMap,
+    });
+  } else {
+    const { page } = req.query;
+    const campgrounds = await Campground.paginate(
+      {},
+      {
+        page,
+        limit: 20,
+      }
+    );
+    res.status(200).json(campgrounds);
+  }
 };
 
 //* create new campground form page

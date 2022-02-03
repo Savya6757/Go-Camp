@@ -1,37 +1,45 @@
 <% layout("layout/boilerplate") %>
   <div id="cluster-map"></div>
-  <h1>All Campgrounds</h1>
-  <a href="campgrounds/new" class="btn btn-success my-3">Create New CampGround</a>
-  <% for(let campground of campgrounds){ %>
-    <div class="card mb-2">
-      <div class="row">
-        <div class="col-md-4">
-          <% if(campground.images.length){ %>
-            <img src="<%= campground.images[0].url %>" class="img-fluid card-image" />
-            <% }else{ %>
-              <img
-                src="https://images.unsplash.com/photo-1471115853179-bb1d604434e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
-                class="img-fluid card-image" />
-              <% } %>
-        </div>
-        <div class="col-md-8 py-3">
-          <h5 class="card-title">
-            <%= campground.title %>
-          </h5>
-          <p class="card-text">
-            <%= campground.description %>
-          </p>
-          <p>---<small class="text-muted">
-              <%= campground.location %>
-            </small></p>
-          <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">View Camp</a>
+  <div id="campgrounds-container">
+    <h1>All Campgrounds</h1>
+    <a href="campgrounds/new" class="btn btn-success my-3">Create New CampGround</a>
+    <% for(let campground of campgrounds.docs){ %>
+      <div class="card mb-2">
+        <div class="row">
+          <div class="col-md-4">
+            <% if(campground.images.length){ %>
+              <img src="<%= campground.images[0].url %>" class="img-fluid card-image" />
+              <% }else{ %>
+                <img
+                  src="https://images.unsplash.com/photo-1471115853179-bb1d604434e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+                  class="img-fluid card-image" />
+                <% } %>
+          </div>
+          <div class="col-md-8 py-3">
+            <h5 class="card-title">
+              <%= campground.title %>
+                <% campground.properties.popupMarkup %>
+            </h5>
+            <p class="card-text">
+              <%= campground.description %>
+            </p>
+            <p>---<small class="text-muted">
+                <%= campground.location %>
+              </small></p>
+            <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">View Camp</a>
+          </div>
         </div>
       </div>
-    </div>
-    <% } %>
+      <% } %>
+  </div>
 
-      <script>
-        const mapToken = "<%-process.env.MAP_BOX_TOKEN%>"
-        const campgrounds = { features:<%- JSON.stringify(campgrounds) %>}
-      </script>
-      <script src="/js/clusterMap.js"></script>
+  <div class="text-center"><a id="paginate" href="/campgrounds?page=<%=campgrounds.nextPage%>"
+      class="btn btn-primary">Veiw
+      More</a></div>
+
+  <script>
+    const mapToken = "<%-process.env.MAP_BOX_TOKEN%>"
+    const campgroundsMap = { features:<%-JSON.stringify(campForMap) %>}
+  </script>
+  <script src="/js/pagination.js"></script>
+  <script src="/js/clusterMap.js"></script>

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Review = require("./reviews");
+const mongoosePaginate = require("mongoose-paginate-v2");
 
 const imageSchema = new Schema({
   url: String,
@@ -46,7 +47,9 @@ const campgroundSchema = new Schema(
 );
 
 campgroundSchema.virtual("properties.popupMarkup").get(function () {
-  return `<a href="/campgrounds/${this._id}>${this.title}</a>`;
+  return `
+    <strong><a href="/campgrounds/${this._id}">${this.title}</a><strong>
+    <p>${this.description.substring(0, 20)}...</p>`;
 });
 
 campgroundSchema.post("findOneAndDelete", async function (campground) {
@@ -56,5 +59,7 @@ campgroundSchema.post("findOneAndDelete", async function (campground) {
     }
   }
 });
+
+campgroundSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model("Campground", campgroundSchema);
