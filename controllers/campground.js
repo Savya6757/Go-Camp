@@ -7,28 +7,44 @@ const { cloudinary } = require("../cloudinary/index");
 //* all campgrounds page
 module.exports.index = async (req, res) => {
   delete req.session.lastPage;
-  const campForMap = await Campground.find({});
-  if (!req.query.page) {
-    const campgrounds = await Campground.paginate(
-      {},
-      {
-        limit: 20,
+  if (req.query.search) {
+    const regex = new RegExp(escapeRegex(req.query.search), "gi");
+    const campForMap = await Campground.find({ title: regex });
+    if (!req.query.page) {
+      const campgrounds = await Campground.paginate(
+        { title: regex },
+        {
+          limit: 20,
+        }
+      );
+      console.log(campgrounds.docs);
+      if (!campgrounds.docs.length) {
+        req.flash("error", "Cannot find that campground");
+        res.redirect("/campgrounds");
+      } else {
+        res.render("campgrounds/index", {
+          campgrounds,
+          campForMap,
+        });
       }
-    );
-    res.render("campgrounds/index", {
-      campgrounds,
-      campForMap,
-    });
+    } else {
+      const { page } = req.query;
+      const campgrounds = await Campground.paginate({ title: regex }, { page, limit: 20 });
+      res.status(200).json(campgrounds);
+    }
   } else {
-    const { page } = req.query;
-    const campgrounds = await Campground.paginate(
-      {},
-      {
-        page,
-        limit: 20,
-      }
-    );
-    res.status(200).json(campgrounds);
+    const campForMap = await Campground.find({});
+    if (!req.query.page) {
+      const campgrounds = await Campground.paginate({}, { limit: 20 });
+      res.render("campgrounds/index", {
+        campgrounds,
+        campForMap,
+      });
+    } else {
+      const { page } = req.query;
+      const campgrounds = await Campground.paginate({}, { page, limit: 20 });
+      res.status(200).json(campgrounds);
+    }
   }
 };
 
@@ -62,6 +78,7 @@ module.exports.createNewCampground = async (req, res, next) => {
   const newCamp = new Campground(req.body.campground);
   newCamp.geometry = geoLocation.body.features[0].geometry;
   newCamp.images = req.files.map((file) => ({ url: file.path, name: file.filename }));
+  newCamp.images = newCamp.optimised;
   newCamp.owner = req.user._id;
   await newCamp.save();
   req.flash("success", "Successfully created campground");
@@ -118,3 +135,7 @@ module.exports.deleteCampground = async (req, res) => {
   req.flash("success", "Successfully deleted campground");
   res.redirect("/campgrounds");
 };
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}

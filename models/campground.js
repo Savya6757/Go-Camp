@@ -11,6 +11,9 @@ const imageSchema = new Schema({
 imageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_200");
 });
+imageSchema.virtual("optimised").get(function () {
+  return this.url.replace("/upload", "/upload/q_60");
+});
 
 const opts = { toJSON: { virtuals: true } };
 

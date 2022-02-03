@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 
 const Campground = require("../models/campground");
 const mongoose = require("mongoose");
-const { indianCities } = require("./indianCities");
+const { indianCities } = require("./indianCities.js");
 const axios = require("axios");
 const { descriptors, places } = require("./seedsHelper");
 
@@ -42,10 +42,10 @@ async function seedImg() {
 const seedData = async () => {
   await Campground.deleteMany({});
   for (let i = 0; i < 200; i++) {
-    const random = Math.floor(Math.random() * 1000);
+    const random = Math.floor(Math.random() * 1400);
     const price = parseFloat((Math.random() * 40 + 10).toFixed(2));
     // const data = await seedImg();
-    const location = `${indianCities[random].name}, ${indianCities[random].state}`;
+    const location = `${indianCities[random].city}, ${indianCities[random].state}`;
 
     const geoLocation = await geoCoder
       .forwardGeocode({

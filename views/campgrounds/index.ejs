@@ -1,8 +1,21 @@
 <% layout("layout/boilerplate") %>
-  <div id="cluster-map"></div>
+  <div id="cluster-map" class="mb-4"></div>
+
+  <h1 class="text-center">All Campgrounds</h1>
+  <div class="mb-3">
+    <form action="/campgrounds" method="get">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <input type="text" class="form-control" name="search" id="search" placeholder="Campground...">
+        </div>
+      </div>
+      <div class="text-center mt-3"><input type="submit" class="btn btn-primary"></div>
+    </form>
+  </div>
+
   <div id="campgrounds-container">
-    <h1>All Campgrounds</h1>
-    <a href="campgrounds/new" class="btn btn-success my-3">Create New CampGround</a>
+
+    <!-- <a href="campgrounds/new" class="btn btn-success my-3">Create New CampGround</a> -->
     <% for(let campground of campgrounds.docs){ %>
       <div class="card mb-2">
         <div class="row">
