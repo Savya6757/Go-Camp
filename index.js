@@ -55,7 +55,6 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig));
 app.use(flash());
-// app.use(helmet());
 
 const scriptSrcUrls = [
   "https://stackpath.bootstrapcdn.com/",
@@ -89,7 +88,6 @@ const connectSrcUrls = [
   "*.fontawesome.com/",
 ];
 const fontSrcUrls = ["*.fontawesome.com/"];
-// const fontSrcUrls = ["https://res.cloudinary.com/dv5vm4sqh/"];
 
 app.use(
   helmet.contentSecurityPolicy({
