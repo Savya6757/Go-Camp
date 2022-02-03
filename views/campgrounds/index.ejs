@@ -1,64 +1,66 @@
 <% layout("layout/boilerplate") %>
-  <div id="cluster-map" class="mb-4"></div>
-
-  <h1 class="text-center">All Campgrounds</h1>
-  <div class="mb-3">
-    <form action="/campgrounds" method="get">
-      <div class="row">
-        <div class="col-md-6 offset-md-3 px-1">
-          <input type="text" class="form-control" name="search" id="search" placeholder="Campground...">
-        </div>
-        <div class="col-md-2 px-1">
-          <select class="form-select" aria-label="Default select example" name="choice">
-            <option selected value="title">Title</option>
-            <option value="location">Location</option>
-          </select>
-        </div>
-      </div>
-      <div class="text-center mt-3"><input type="submit" class="btn btn-primary"></div>
-    </form>
-  </div>
-
-  <div id="campgrounds-container">
-
-    <!-- <a href="campgrounds/new" class="btn btn-success my-3">Create New CampGround</a> -->
-    <% for(let campground of campgrounds.docs){ %>
-      <div class="card mb-2">
-        <div class="row">
-          <div class="col-md-4">
-            <% if(campground.images.length){ %>
-              <img src="<%= campground.images[0].url %>" class="img-fluid card-image" />
-              <% }else{ %>
-                <img
-                  src="https://images.unsplash.com/photo-1471115853179-bb1d604434e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
-                  class="img-fluid card-image" />
-                <% } %>
+  <% if(currentUser && currentUser.isAdmin){ %>
+    <h2> You are an admin</h2>
+    <% } %>
+      <div id="cluster-map" class="mb-4"></div>
+      <h1 class="text-center">All Campgrounds</h1>
+      <div class="mb-3">
+        <form action="/campgrounds" method="get">
+          <div class="row">
+            <div class="col-md-6 offset-md-3 px-1">
+              <input type="text" class="form-control" name="search" id="search" placeholder="Campground...">
+            </div>
+            <div class="col-md-2 px-1">
+              <select class="form-select" aria-label="Default select example" name="choice">
+                <option selected value="title">Title</option>
+                <option value="location">Location</option>
+              </select>
+            </div>
           </div>
-          <div class="col-md-8 pt-3 pb-1 ps-2 pe-4">
-            <h5 class="card-title">
-              <%= campground.title %>
-                <% campground.properties.popupMarkup %>
-            </h5>
-            <p class="card-text">
-              <%= campground.description.substr(0,250) %>...
-            </p>
-            <p>---<small class="text-muted">
-                <%= campground.location %>
-              </small></p>
-            <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">View Camp</a>
-          </div>
-        </div>
+          <div class="text-center mt-3"><input type="submit" class="btn btn-primary"></div>
+        </form>
       </div>
-      <% } %>
-  </div>
 
-  <div class="text-center"><a id="paginate" href="/campgrounds?page=<%=campgrounds.nextPage%>"
-      class="btn btn-primary">Veiw
-      More</a></div>
+      <div id="campgrounds-container">
 
-  <script>
-    const mapToken = "<%-process.env.MAP_BOX_TOKEN%>"
-    const campgroundsMap = { features:<%-JSON.stringify(campForMap) %>}
-  </script>
-  <script src="/js/pagination.js"></script>
-  <script src="/js/clusterMap.js"></script>
+        <!-- <a href="campgrounds/new" class="btn btn-success my-3">Create New CampGround</a> -->
+        <% for(let campground of campgrounds.docs){ %>
+          <div class="card mb-2">
+            <div class="row">
+              <div class="col-md-4">
+                <% if(campground.images.length){ %>
+                  <img src="<%= campground.images[0].url %>" class="img-fluid card-image" />
+                  <% }else{ %>
+                    <img
+                      src="https://images.unsplash.com/photo-1471115853179-bb1d604434e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=60"
+                      class="img-fluid card-image" />
+                    <% } %>
+              </div>
+              <div class="col-md-8 pt-3 pb-1 ps-2 pe-4">
+                <h5 class="card-title">
+                  <%= campground.title %>
+                    <% campground.properties.popupMarkup %>
+                </h5>
+                <p class="card-text">
+                  <%= campground.description.substr(0,250) %>...
+                </p>
+                <p>---<small class="text-muted">
+                    <%= campground.location %>
+                  </small></p>
+                <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">View Camp</a>
+              </div>
+            </div>
+          </div>
+          <% } %>
+      </div>
+
+      <div class="text-center"><a id="paginate" href="/campgrounds?page=<%=campgrounds.nextPage%>"
+          class="btn btn-primary">Veiw
+          More</a></div>
+
+      <script>
+        const mapToken = "<%-process.env.MAP_BOX_TOKEN%>"
+        const campgroundsMap = { features:<%-JSON.stringify(campForMap) %>}
+      </script>
+      <script src="/js/pagination.js"></script>
+      <script src="/js/clusterMap.js"></script>

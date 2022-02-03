@@ -1,5 +1,4 @@
 <% layout("layout/boilerplate") %>
-    <h1 class="text-center">Login</h1>
     <div class="row">
         <div class="col-md-6 col-xl-4 mx-auto">
             <div class="card shadow">
@@ -7,9 +6,10 @@
                     class="card-img-top" alt="...">
                 <div class="card-body">
                     <form action="/login" method="post" class="validate" novalidate>
+                        <h4 class="text-center card-title">Login</h4>
                         <div class="mb-3">
                             <label class="form-label" for="username">Username</label>
-                            <input class="form-control" id="username" name="username" type="text" required />
+                            <input class="form-control" id="username" name="username" type="text" required autofocus />
                             <div class="invalid-feedback">Please enter Username</div>
                             <div class="valid-feedback">Looks good!</div>
                         </div>

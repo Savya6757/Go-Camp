@@ -42,7 +42,7 @@
           <li class="list-group-item">Price : <%= camp.price %>
           </li>
         </ul>
-        <% if(currentUser && camp.owner.equals(currentUser._id)){ %>
+        <% if(currentUser && camp.owner.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
           <div class="card-body">
             <a class="btn btn-warning mb-3" href="/campgrounds/<%= camp._id %>/edit">Edit Information</a>
             <form method="post" action="/campgrounds/<%= camp._id %>?_method=DELETE">
@@ -100,7 +100,7 @@
                     Review: <%= review.body %>
                   </p>
                 </div>
-                <% if(currentUser && review.owner.equals(currentUser._id)){ %>
+                <% if(currentUser && review.owner.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
                   <div class="my-2  ">
                     <form action="/campgrounds/<%= camp._id %>/reviews/<%= review._id %>?_method=DELETE" method="post">
                       <button class="btn btn-sm btn-danger">Delete</button>

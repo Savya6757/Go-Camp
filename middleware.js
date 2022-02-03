@@ -25,21 +25,23 @@ module.exports.campgroundValidation = (req, res, next) => {
 module.exports.isOwner = async (req, res, next) => {
   const { id } = req.params;
   const campground = await Campground.findById(id);
-  if (!campground.owner.equals(req.user._id)) {
+  if (campground.owner.equals(req.user._id) || req.user.isAdmin) {
+    return next();
+  } else {
     req.flash("error", "You do not have permission !");
-    return res.redirect(`/campgrounds/${id}`);
+    res.redirect(`/campgrounds/${id}`);
   }
-  next();
 };
 
 module.exports.isOwnerReview = async (req, res, next) => {
   const { id, reviewId } = req.params;
   const review = await Review.findById(reviewId);
-  if (!review.owner.equals(req.user._id)) {
+  if (review.owner.equals(req.user._id) || req.user.isAdmin) {
+    next();
+  } else {
     req.flash("error", "You do not have permission !");
     return res.redirect(`/campgrounds/${id}`);
   }
-  next();
 };
 
 module.exports.reviewValidation = (req, res, next) => {

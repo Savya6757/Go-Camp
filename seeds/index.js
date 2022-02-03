@@ -55,7 +55,7 @@ const seedData = async () => {
       .send();
 
     const camp = new Campground({
-      owner: "61f7a797f97e792989677734",
+      owner: "61fbee34a20af8f54eacd59a",
       location,
       title: `${randomFromArray(descriptors)} ${randomFromArray(places)}`,
       geometry: geoLocation.body.features[0].geometry,
@@ -78,15 +78,3 @@ const seedData = async () => {
 };
 
 seedData().then(() => mongoose.connection.close());
-
-// geometry: {
-//     type: {
-//       type: String,
-//       enum: ["Point"],
-//       required: true,
-//     },
-//     coordinates: {
-//       type: [Number],
-//       required: true,
-//     },
-//   },

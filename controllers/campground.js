@@ -14,7 +14,6 @@ module.exports.index = async (req, res) => {
     const campForMap = await Campground.find(q);
     if (!req.query.page) {
       const campgrounds = await Campground.paginate(q, { limit: 20 });
-      console.log(campgrounds.docs);
       if (!campgrounds.docs.length) {
         req.flash("error", "Cannot find that campground");
         res.redirect("/campgrounds");
@@ -75,7 +74,12 @@ module.exports.createNewCampground = async (req, res, next) => {
   const newCamp = new Campground(req.body.campground);
   newCamp.geometry = geoLocation.body.features[0].geometry;
   newCamp.images = req.files.map((file) => ({ url: file.path, name: file.filename }));
-  newCamp.images = newCamp.optimised;
+  if (!newCamp.images.length) {
+    newCamp.images = {
+      url: "https://images.unsplash.com/photo-1471115853179-bb1d604434e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=60",
+      name: "defaultImage",
+    };
+  }
   newCamp.owner = req.user._id;
   await newCamp.save();
   req.flash("success", "Successfully created campground");
