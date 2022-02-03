@@ -4,7 +4,7 @@ const campgroundsTemplate = document.querySelector("#campgrounds-container");
 paginate.addEventListener("mouseover", function () {
   let pos = this.href.search("page=");
   let link = this.href.slice(pos);
-  if (link === "page=null") {
+  if (link === "page=null" || link === "page=") {
     paginate.textContent = "No more Camps";
     paginate.classList.add("disabled");
     return;

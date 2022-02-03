@@ -9,14 +9,11 @@ module.exports.index = async (req, res) => {
   delete req.session.lastPage;
   if (req.query.search) {
     const regex = new RegExp(escapeRegex(req.query.search), "gi");
-    const campForMap = await Campground.find({ title: regex });
+    const q = {};
+    q[req.query.choice] = regex;
+    const campForMap = await Campground.find(q);
     if (!req.query.page) {
-      const campgrounds = await Campground.paginate(
-        { title: regex },
-        {
-          limit: 20,
-        }
-      );
+      const campgrounds = await Campground.paginate(q, { limit: 20 });
       console.log(campgrounds.docs);
       if (!campgrounds.docs.length) {
         req.flash("error", "Cannot find that campground");
@@ -29,7 +26,7 @@ module.exports.index = async (req, res) => {
       }
     } else {
       const { page } = req.query;
-      const campgrounds = await Campground.paginate({ title: regex }, { page, limit: 20 });
+      const campgrounds = await Campground.paginate(q, { page, limit: 20 });
       res.status(200).json(campgrounds);
     }
   } else {

@@ -5,8 +5,14 @@
   <div class="mb-3">
     <form action="/campgrounds" method="get">
       <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 offset-md-3 px-1">
           <input type="text" class="form-control" name="search" id="search" placeholder="Campground...">
+        </div>
+        <div class="col-md-2 px-1">
+          <select class="form-select" aria-label="Default select example" name="choice">
+            <option selected value="title">Title</option>
+            <option value="location">Location</option>
+          </select>
         </div>
       </div>
       <div class="text-center mt-3"><input type="submit" class="btn btn-primary"></div>
@@ -28,13 +34,13 @@
                   class="img-fluid card-image" />
                 <% } %>
           </div>
-          <div class="col-md-8 py-3">
+          <div class="col-md-8 pt-3 pb-1 ps-2 pe-4">
             <h5 class="card-title">
               <%= campground.title %>
                 <% campground.properties.popupMarkup %>
             </h5>
             <p class="card-text">
-              <%= campground.description %>
+              <%= campground.description.substr(0,250) %>...
             </p>
             <p>---<small class="text-muted">
                 <%= campground.location %>
