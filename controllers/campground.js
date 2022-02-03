@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
     q[req.query.choice] = regex;
     const campForMap = await Campground.find(q);
     if (!req.query.page) {
-      const campgrounds = await Campground.paginate(q, { limit: 20 });
+      const campgrounds = await Campground.paginate(q, { sort: { _id: -1 }, limit: 20 });
       if (!campgrounds.docs.length) {
         req.flash("error", "Cannot find that campground");
         res.redirect("/campgrounds");
@@ -25,20 +25,20 @@ module.exports.index = async (req, res) => {
       }
     } else {
       const { page } = req.query;
-      const campgrounds = await Campground.paginate(q, { page, limit: 20 });
+      const campgrounds = await Campground.paginate(q, { sort: { _id: -1 }, page, limit: 20 });
       res.status(200).json(campgrounds);
     }
   } else {
     const campForMap = await Campground.find({});
     if (!req.query.page) {
-      const campgrounds = await Campground.paginate({}, { limit: 20 });
+      const campgrounds = await Campground.paginate({}, { sort: { _id: -1 }, limit: 20 });
       res.render("campgrounds/index", {
         campgrounds,
         campForMap,
       });
     } else {
       const { page } = req.query;
-      const campgrounds = await Campground.paginate({}, { page, limit: 20 });
+      const campgrounds = await Campground.paginate({}, { sort: { _id: -1 }, page, limit: 20 });
       res.status(200).json(campgrounds);
     }
   }
