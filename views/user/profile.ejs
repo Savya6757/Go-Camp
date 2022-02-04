@@ -3,9 +3,12 @@
         <div class="col-md-4 text-center">
             <img src="/images/user.jpg" class="img-thumbnail" alt="">
             <h2>
-                #<%= user.username %>
+                @<%= user.username %>
             </h2>
-            <p>More funtionality will be added soon...</p>
+            <% if(user.isAdmin){ %>
+                <h5><i class="fas fa-user-cog"></i> Admin</h5>
+                <% } %>
+                    <p>More funtionality will be added soon...</p>
         </div>
         <div class="col-md-8">
             <h2>All Campgrounds</h2>
@@ -13,38 +16,19 @@
                 <% for(campground of campgrounds){ %>
                     <div class="col-md-4 mb-3">
                         <div class="card">
-                            <img src="<%=campground.images[0].url%>" class="card-img-top profile-card-image" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <%= campground.title %>
-                                </h5>
-                                <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary btn-sm">View
-                                    More</a>
-                            </div>
+                            <% if(campground.images.length){ %>
+                                <img src="<%=campground.images[0].url%>" class="card-img-top profile-card-image"
+                                    alt="...">
+                                <% } %>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <%= campground.title %>
+                                        </h5>
+                                        <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary btn-sm">View
+                                            More</a>
+                                    </div>
                         </div>
                     </div>
-                    <!-- <div class="col-md-4">
-                        <div class="card">
-                            <img src="<%=campground.images[0].url%>" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <%= campground.title %>
-                                </h5>
-                                <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary btn-sm">View More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="<%=campground.images[0].url%>" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <%= campground.title %>
-                                </h5>
-                                <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary btn-sm">View More</a>
-                            </div>
-                        </div>
-                    </div>-->
                     <% } %>
             </div>
         </div>

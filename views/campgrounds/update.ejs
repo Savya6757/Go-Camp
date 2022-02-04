@@ -50,14 +50,11 @@
         <div class="mb-3">
           <div class="row">
             <% camp.images.forEach((img,i)=>{ %>
-              <div class="col-md-3 mb-1 delete-image">
-                <div class="card bg-dark text-white w-100 h-100">
-                  <img src="<%= img.thumbnail %>" class="delete-image w-100 h-100" style="object-fit: cover;">
-                  <div class="card-img-overlay text-end pt-2 pe-2">
-                    <input class="form-check-input mt-0" type="checkbox" value="<%= img.name %>" id="img-<%= i %>"
-                      name="deleteImages[]">
-                  </div>
-                </div>
+              <div class="col-md-4 mb-5 delete-image-div text-center">
+                <img src="<%= img.thumbnail %>" class="delete-image">
+                <label for="img-<%=i %>"><i class="fas fa-trash fa-4x"></i></label>
+                <input class="form-check-input mt-3" type="checkbox" value="<%= img.name %>" id="img-<%= i %>"
+                  name="deleteImages[]">
               </div>
               <% }) %>
           </div>

@@ -4,7 +4,7 @@ const { catchAsync } = require("../utils/catchAsync");
 const passport = require("passport");
 const users = require("../controllers/users");
 
-router.get("/user/:id", users.profilePage);
+router.get("/user/:id", catchAsync(users.profilePage));
 
 router.route("/register").get(users.registerForm).post(catchAsync(users.registerNewUser));
 

@@ -28,7 +28,6 @@
 
       <div id="campgrounds-container">
 
-        <!-- <a href="campgrounds/new" class="btn btn-success my-3">Create New CampGround</a> -->
         <% for(let campground of campgrounds.docs){ %>
           <div class="card mb-2" id="index-card">
             <div class="row">
@@ -52,7 +51,7 @@
                 <p>---<small class="text-muted">
                     <%= campground.location %>
                   </small></p>
-                <a href="/campgrounds/<%= campground._id %>" class="btn btn-dark">View Camp <i
+                <a href="/campgrounds/<%= campground._id %>" class="btn btn-dark index-viewMore">View Camp <i
                     class="fas fa-angle-double-right"></i></a>
               </div>
             </div>

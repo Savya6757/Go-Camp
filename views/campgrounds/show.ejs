@@ -38,7 +38,7 @@
           <li class="list-group-item">Location : <%= camp.location %>
           </li>
           <li class="list-group-item">created by : <a href="/user/<%= camp.owner._id %>">
-              <%= camp.owner.username %>
+              @<%= camp.owner.username %>
             </a>
           </li>
           <li class="list-group-item">Price : <%= camp.price %>
@@ -116,6 +116,6 @@
 
   <script>
     const mapMarker = "<%-process.env.MAP_BOX_TOKEN%>"
-    const campground = <% - JSON.stringify(camp) %>
+    const campground = <%- JSON.stringify(camp) %>
   </script>
   <script src="/js/showMap.js"></script>
