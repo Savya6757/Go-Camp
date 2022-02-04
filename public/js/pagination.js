@@ -5,7 +5,7 @@ paginate.addEventListener("mouseover", function () {
   let pos = this.href.search("page=");
   let link = this.href.slice(pos);
   if (link === "page=null" || link === "page=") {
-    paginate.textContent = "No more Camps";
+    paginate.textContent = "No more camps";
     paginate.classList.add("disabled");
     return;
   }
@@ -48,7 +48,8 @@ const generateCampground = function (campground) {
           <p>---<small class="text-muted">
               ${campground.location}
             </small></p>
-          <a href="/campgrounds/${campground._id}" class="btn btn-primary">View Camp</a>
+          <a href="/campgrounds/${campground._id}" class="btn btn-dark">View Camp <i
+                    class="fas fa-angle-double-right"></i></a>
         </div>
       </div>
     </div> `;

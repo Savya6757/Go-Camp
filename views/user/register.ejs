@@ -1,9 +1,62 @@
 <% layout("layout/boilerplate") %>
-    <div class="row">
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-5 order-2 order-md-1  m-auto">
+                <div class="card-body">
+                    <form action="/register" method="post" class="validate" novalidate>
+                        <h1 class="mb-4">Register</h1>
+                        <div class="mb-4">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" id="username" name="username" type="text" required autofocus />
+                            <div class="invalid-feedback">Please enter Username</div>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" id="email" name="email" type="email" required />
+                            <div class="invalid-feedback">Please enter a valid Email</div>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" id="password" name="password" type="password" required />
+                            <div class="invalid-feedback">Please enter a password</div>
+                            <div class="valid-feedback">Looks good!</div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" for="admin">Admin Code</label>
+                            <input class="form-control" id="admin" name="adminCode" type="text" />
+                        </div>
+                        <div class="d-grid mb-3"><button class="btn btn-success">Register</button></div>
+                    </form>
+                    <span class="me-3 mb-0">Already a user?</span><a href="login">Login</a>
+                </div>
+            </div>
+            <div class="col-md-7 order-1 order-md-2">
+                <img src="/images/createPage.jpg " class="img-fluid rounded-start" alt="...">
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div class="row">
         <div class="col-md-6 col-xl-4 mx-auto">
             <div class="card shadow">
-                <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=60"
-                    class="card-img-top " alt="">
+                <img src="/images/login2.jpg" class="card-img-top " alt="">
                 <div class="card-body pt-1">
                     <form action="/register" method="post" class="validate" novalidate>
                         <h4 class="text-center card-title mb-0">Register</h4>
@@ -34,4 +87,4 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->

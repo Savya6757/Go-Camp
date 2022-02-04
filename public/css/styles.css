@@ -1,4 +1,3 @@
-
 .card-image {
   width: 100%;
   height: 15rem;
@@ -33,4 +32,25 @@
 #map {
   width: 100%;
   height: 300px;
+}
+
+.fa-chevron-circle-down,
+.fa-angle-double-right {
+  transition: 0.2s;
+}
+
+#index-card {
+  transition: 0.3s;
+}
+
+#index-card:hover {
+  transform: translateX(15px);
+  box-shadow: 5px 5px 10px gray;
+}
+
+.btn-dark:hover .fa-angle-double-right {
+  transform: translateX(3px);
+}
+#paginate:hover .fa-chevron-circle-down {
+  transform: translateY(3px);
 }
