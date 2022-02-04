@@ -17,6 +17,7 @@ const User = require("./models/user");
 const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const MongoStore = require("connect-mongo");
+const favicon = require("serve-favicon");
 
 const campgroundRoute = require("./routes/campground");
 const reviewsRoute = require("./routes/reviews");
@@ -38,6 +39,7 @@ app.engine("ejs", ejsMethod);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(favicon(path.join(__dirname, "public", "fevicon", "favicon.ico")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
