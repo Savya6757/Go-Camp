@@ -1,6 +1,7 @@
 <% layout("layout/boilerplate") %>
   <div class="row">
-    <div class="col-6 offset-3">
+    <div class="col-6 offset-3 text-center">
+      <img src="/images/warning.gif" class="error-img w-50" alt="">
       <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">
           Error <%= err.statusCode %>
@@ -12,5 +13,6 @@
               <% } %>
         </p>
       </div>
+      <a href="/" class="btn btn-success">Home</a>
     </div>
   </div>

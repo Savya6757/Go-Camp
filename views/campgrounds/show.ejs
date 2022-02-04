@@ -8,7 +8,7 @@
           <div class="carousel-inner">
             <% for(img of camp.images){ %>
               <div class="carousel-item <%= img===camp.images[0] ? " active" : "" %>">
-                <img src="<%= img.url %>" class="d-block w-100" alt="">
+                <img src="<%= img.url %>" class="d-block w-100 show-image" alt="">
               </div>
               <% } %>
           </div>
@@ -37,7 +37,9 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item">Location : <%= camp.location %>
           </li>
-          <li class="list-group-item">created by : <%= camp.owner.username %>
+          <li class="list-group-item">created by : <a href="/user/<%= camp.owner._id %>">
+              <%= camp.owner.username %>
+            </a>
           </li>
           <li class="list-group-item">Price : <%= camp.price %>
           </li>
@@ -94,7 +96,6 @@
                     <p class="starability-result mt-3" data-rating="<%= review.rating %>">
                       Rated: <%= review.rating %> stars
                     </p>
-
                   </h6>
                   <p class="card-text my-1">
                     Review: <%= review.body %>
@@ -115,6 +116,6 @@
 
   <script>
     const mapMarker = "<%-process.env.MAP_BOX_TOKEN%>"
-    const campground = <%- JSON.stringify(camp) %>
+    const campground = <% - JSON.stringify(camp) %>
   </script>
   <script src="/js/showMap.js"></script>

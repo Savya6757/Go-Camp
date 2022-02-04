@@ -13,7 +13,7 @@ module.exports.index = async (req, res) => {
     q[req.query.choice] = regex;
     const campForMap = await Campground.find(q);
     if (!req.query.page) {
-      const campgrounds = await Campground.paginate(q, { sort: { _id: -1 }, limit: 20 });
+      const campgrounds = await Campground.paginate(q, { sort: { _id: -1 } });
       if (!campgrounds.docs.length) {
         req.flash("error", "Cannot find that campground");
         res.redirect("/campgrounds");
@@ -25,20 +25,20 @@ module.exports.index = async (req, res) => {
       }
     } else {
       const { page } = req.query;
-      const campgrounds = await Campground.paginate(q, { sort: { _id: -1 }, page, limit: 20 });
+      const campgrounds = await Campground.paginate(q, { sort: { _id: -1 }, page });
       res.status(200).json(campgrounds);
     }
   } else {
     const campForMap = await Campground.find({});
     if (!req.query.page) {
-      const campgrounds = await Campground.paginate({}, { sort: { _id: -1 }, limit: 20 });
+      const campgrounds = await Campground.paginate({}, { sort: { _id: -1 } });
       res.render("campgrounds/index", {
         campgrounds,
         campForMap,
       });
     } else {
       const { page } = req.query;
-      const campgrounds = await Campground.paginate({}, { sort: { _id: -1 }, page, limit: 20 });
+      const campgrounds = await Campground.paginate({}, { sort: { _id: -1 }, page });
       res.status(200).json(campgrounds);
     }
   }
@@ -52,13 +52,18 @@ module.exports.renderNewForm = (req, res) => {
 //* showing a single campground
 module.exports.showCampground = async (req, res) => {
   const { id } = req.params;
+  if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+    req.flash("error", "Invalid Campground Id");
+    return res.redirect("/campgrounds");
+  }
+  console.log(id.length);
   const camp = await Campground.findById(id)
     .populate({ path: "reviews", populate: { path: "owner" } })
     .populate("owner");
 
   if (!camp) {
     req.flash("error", "Cannot find that campground");
-    res.redirect("/campgrounds");
+    return res.redirect("/campgrounds");
   }
   res.render("campgrounds/show", { camp });
 };

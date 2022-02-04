@@ -1,4 +1,12 @@
 const User = require("../models/user");
+const Campground = require("../models/campground");
+
+module.exports.profilePage = async (req, res) => {
+  const { id } = req.params;
+  const campgrounds = await Campground.find({ owner: id });
+  const user = await User.findById(id);
+  res.render("user/profile", { user, campgrounds });
+};
 
 module.exports.registerForm = (req, res) => {
   res.render("user/register");

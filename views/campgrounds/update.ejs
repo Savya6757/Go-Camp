@@ -50,9 +50,9 @@
         <div class="mb-3">
           <div class="row">
             <% camp.images.forEach((img,i)=>{ %>
-              <div class="col-md-3 mb-1 ">
+              <div class="col-md-3 mb-1 delete-image">
                 <div class="card bg-dark text-white w-100 h-100">
-                  <img src="<%= img.thumbnail %>" class="card-img w-100 h-100" style="object-fit: cover;">
+                  <img src="<%= img.thumbnail %>" class="delete-image w-100 h-100" style="object-fit: cover;">
                   <div class="card-img-overlay text-end pt-2 pe-2">
                     <input class="form-check-input mt-0" type="checkbox" value="<%= img.name %>" id="img-<%= i %>"
                       name="deleteImages[]">
