@@ -1,4 +1,18 @@
-
+body {
+  position: relative;
+}
+.up-btn {
+  position: fixed;
+  background-color: #f8f8f8;
+  color: black;
+  right: 5px;
+  bottom: 5px;
+  opacity: 0;
+  transition: 0.3s;
+}
+.scrolled {
+  opacity: 1;
+}
 a {
   text-decoration: none;
 }

@@ -12,9 +12,12 @@ const { imagesSeed } = require("./images");
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapboxToken = process.env.MAP_BOX_TOKEN;
 const geoCoder = mbxGeocoding({ accessToken: mapboxToken });
+const dbUrl = process.env.MONGO_DB_URL;
+
+//  || "mongodb://localhost:27017/yelp-camp";
 
 mongoose
-  .connect("mongodb://localhost:27017/yelp-camp")
+  .connect(dbUrl)
   .then(() => {
     console.log("Mongo connected");
   })
@@ -58,7 +61,7 @@ const seedData = async () => {
       .send();
 
     const camp = new Campground({
-      owner: "61fbee34a20af8f54eacd59a",
+      owner: "61fe8c124238eb266ae70d92",
       location,
       title: `${randomFromArray(descriptors)} ${randomFromArray(places)}`,
       geometry: geoLocation.body.features[0].geometry,
