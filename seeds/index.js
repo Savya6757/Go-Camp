@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const { indianCities } = require("./indianCities.js");
 const axios = require("axios");
 const { descriptors, places } = require("./seedsHelper");
+const { imagesSeed } = require("./images");
 
 const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
 const mapboxToken = process.env.MAP_BOX_TOKEN;
@@ -41,9 +42,11 @@ async function seedImg() {
 
 const seedData = async () => {
   await Campground.deleteMany({});
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 50; i++) {
     const random = Math.floor(Math.random() * 1400);
     const price = parseFloat((Math.random() * 40 + 10).toFixed(2));
+    const randomImage1 = Math.floor(Math.random() * 50);
+    const randomImage2 = Math.floor(Math.random() * 50);
     // const data = await seedImg();
     const location = `${indianCities[random].city}, ${indianCities[random].state}`;
 
@@ -64,12 +67,12 @@ const seedData = async () => {
       price,
       images: [
         {
-          url: "https://res.cloudinary.com/dqtx8kikg/image/upload/v1643809925/YelpCamp/mainCamp_rvbo8y.jpg",
-          name: "YelpCamp/mainCamp_rvbo8y",
+          url: imagesSeed[randomImage1].url,
+          name: imagesSeed[randomImage1].name,
         },
         {
-          url: "https://res.cloudinary.com/dqtx8kikg/image/upload/v1643811183/YelpCamp/hillsCamp_cuyeoo.jpg",
-          name: "YelpCamp/hillsCamp_cuyeoo.jpg",
+          url: imagesSeed[randomImage2].url,
+          name: imagesSeed[randomImage2].name,
         },
       ],
     });

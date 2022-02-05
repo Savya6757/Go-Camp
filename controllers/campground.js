@@ -56,7 +56,6 @@ module.exports.showCampground = async (req, res) => {
     req.flash("error", "Invalid Campground Id");
     return res.redirect("/campgrounds");
   }
-  console.log(id.length);
   const camp = await Campground.findById(id)
     .populate({ path: "reviews", populate: { path: "owner" } })
     .populate("owner");

@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>YelpCamp</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <script src="https://kit.fontawesome.com/4f3805b72c.js" crossorigin="anonymous"></script>
     <script src="/js/bootstrap.min.js"></script>
 
@@ -18,10 +19,9 @@
     <header class="mb-auto">
         <%- include("../partials/navbar") %>
     </header>
-    <div class="cover-container mx-auto">
-
-        <main class="px-3">
-            <h1 class="">YelpCamp</h1>
+    <div class="cover-container m-auto">
+        <main class="px-3" data-aos="fade-up">
+            <h1><i class="fa-brands fa-yelp fa-lg mx-1" id="mainLogo"></i> YelpCamp</h1>
             <p class="lead fw-normal">The only place you need to plan your next camp <br>
                 Explore hundreds of camp sites across India and share your own</p>
             <a href="/campgrounds" class="btn btn-secondary btn-light bg-white mt-2">View Campgrounds</a>
@@ -30,6 +30,10 @@
     <footer class="mt-auto">
         <%- include("../partials/footer") %>
     </footer>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
 
 </body>
 

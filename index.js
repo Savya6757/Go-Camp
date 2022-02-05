@@ -87,6 +87,7 @@ const scriptSrcUrls = [
   "https://res.cloudinary.com/dv5vm4sqh/",
   "https://kit.fontawesome.com/",
   "*.fontawesome.com",
+  "https://unpkg.com",
 ];
 const styleSrcUrls = [
   "https://kit-free.fontawesome.com/",
@@ -100,6 +101,7 @@ const styleSrcUrls = [
   "https://cdnjs.cloudflare.com/",
   "https://kit.fontawesome.com/",
   "*.fontawesome.com/",
+  "https://unpkg.com",
 ];
 const connectSrcUrls = [
   "https://*.tiles.mapbox.com",

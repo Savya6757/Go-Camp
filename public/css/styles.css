@@ -1,12 +1,7 @@
-/* .pop-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("image.jpg") no-repeat center;
-  background-size: cover;
-} */
+
+a {
+  text-decoration: none;
+}
 
 .card-image {
   width: 100%;
@@ -87,7 +82,8 @@
 }
 
 .fa-chevron-circle-down,
-.fa-angle-double-right {
+.fa-angle-double-right,
+.fa-arrow-left {
   transition: 0.2s;
 }
 
@@ -100,10 +96,14 @@
   box-shadow: 5px 5px 10px gray;
 }
 
-.index-viewMore:hover .fa-angle-double-right {
-  transform: translateX(3px);
+.camp-viewMore:hover .fa-angle-double-right {
+  transform: translateX(4px);
 }
 
 #paginate:hover .fa-chevron-circle-down {
   transform: translateY(3px);
+}
+
+.back-btn:hover .fa-arrow-left {
+  transform: translateX(-4px);
 }

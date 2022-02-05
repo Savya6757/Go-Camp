@@ -29,7 +29,7 @@ paginate.addEventListener("click", function (e) {
 });
 
 const generateCampground = function (campground) {
-  htmlTemplate = `<div class="card mb-2">
+  htmlTemplate = `<div class="card mb-2" id="index-card">
       <div class="row">
         <div class="col-md-4">
             <img src="${
@@ -48,7 +48,7 @@ const generateCampground = function (campground) {
           <p>---<small class="text-muted">
               ${campground.location}
             </small></p>
-          <a href="/campgrounds/${campground._id}" class="btn btn-dark">View Camp <i
+          <a href="/campgrounds/${campground._id}" class="btn btn-dark camp-viewMore">View Camp <i
                     class="fas fa-angle-double-right"></i></a>
         </div>
       </div>
