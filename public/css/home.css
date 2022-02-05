@@ -3,7 +3,7 @@
 body {
   height: 100vh;
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5)),
-    url("/images/homepage2.jpg");
+    url("/images/homepage2.webp");
   background-size: cover;
   background-position: center;
   text-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.9);

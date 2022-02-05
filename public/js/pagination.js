@@ -1,32 +1,34 @@
 const paginate = document.querySelector("#paginate");
 const campgroundsTemplate = document.querySelector("#campgrounds-container");
 
-paginate.addEventListener("mouseover", function () {
-  let pos = this.href.search("page=");
-  let link = this.href.slice(pos);
-  if (link === "page=null" || link === "page=") {
-    paginate.textContent = "No more camps";
-    paginate.classList.add("disabled");
-    return;
-  }
-});
+if (paginate) {
+  paginate.addEventListener("mouseover", function () {
+    let pos = this.href.search("page=");
+    let link = this.href.slice(pos);
+    if (link === "page=null" || link === "page=") {
+      paginate.textContent = "No more camps";
+      paginate.classList.add("disabled");
+      return;
+    }
+  });
 
-paginate.addEventListener("click", function (e) {
-  e.preventDefault();
-  fetch(this.href)
-    .then((response) => response.json())
-    .then((data) => {
-      for (let campground of data.docs) {
-        let template = generateCampground(campground);
-        const div = document.createElement("div");
-        div.innerHTML = template;
-        campgroundsTemplate.append(div);
-      }
-      let { nextPage } = data;
-      this.href = this.href.replace(/page=\d+/, `page=${nextPage}`); //* or use slicing as in mouseover event
-    })
-    .catch((e) => console.log("error !", e));
-});
+  paginate.addEventListener("click", function (e) {
+    e.preventDefault();
+    fetch(this.href)
+      .then((response) => response.json())
+      .then((data) => {
+        for (let campground of data.docs) {
+          let template = generateCampground(campground);
+          const div = document.createElement("div");
+          div.innerHTML = template;
+          campgroundsTemplate.append(div);
+        }
+        let { nextPage } = data;
+        this.href = this.href.replace(/page=\d+/, `page=${nextPage}`); //* or use slicing as in mouseover event
+      })
+      .catch((e) => console.log("error !", e));
+  });
+}
 
 const generateCampground = function (campground) {
   htmlTemplate = `<div class="card mb-2" id="index-card">
