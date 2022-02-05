@@ -47,7 +47,7 @@ const seedData = async () => {
   await Campground.deleteMany({});
   for (let i = 0; i < 50; i++) {
     const random = Math.floor(Math.random() * 1400);
-    const price = parseFloat((Math.random() * 40 + 10).toFixed(2));
+    const price = parseFloat(Math.floor(Math.random() * 20000 + 1000));
     const randomImage1 = Math.floor(Math.random() * 50);
     const randomImage2 = Math.floor(Math.random() * 50);
     // const data = await seedImg();
@@ -59,7 +59,8 @@ const seedData = async () => {
         limit: 1,
       })
       .send();
-
+    //61fbee34a20af8f54eacd59a local
+    //61fe8c124238eb266ae70d92 cloud
     const camp = new Campground({
       owner: "61fe8c124238eb266ae70d92",
       location,

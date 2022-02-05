@@ -41,7 +41,7 @@
               @<%= camp.owner.username %>
             </a>
           </li>
-          <li class="list-group-item">Price : <%= camp.price %>
+          <li class="list-group-item">Price : <%= camp.price %>/per week
           </li>
         </ul>
         <% if(currentUser && camp.owner.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
