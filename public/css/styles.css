@@ -81,8 +81,8 @@ a {
   border-bottom-color: white;
 }
 
-.mainLogo {
-  color: rgb(241, 33, 33);
+.nav-mainLogo {
+  width: 30px;
 }
 
 #cluster-map {
