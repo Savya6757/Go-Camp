@@ -81,9 +81,6 @@ a {
   border-bottom-color: white;
 }
 
-.nav-mainLogo {
-  width: 30px;
-}
 
 #cluster-map {
   width: 100%;
@@ -120,9 +117,4 @@ a {
 
 .back-btn:hover .fa-arrow-left {
   transform: translateX(-4px);
-}
-
-.github-svg,
-.linkdin-svg {
-  width: 60px;
 }
