@@ -21,6 +21,7 @@ const favicon = require("serve-favicon");
 const compression = require("compression");
 const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
+const minify = require("express-minify");
 
 const campgroundRoute = require("./routes/campground");
 const reviewsRoute = require("./routes/reviews");
@@ -29,30 +30,6 @@ const userRoute = require("./routes/users");
 const port = process.env.PORT || 3000;
 const dbUrl = process.env.MONGO_DB_URL || "mongodb://localhost:27017/yelp-camp";
 
-// if (cluster.isMaster) {
-//   console.log(`Master ${process.pid} is running`);
-//   for (let i = 0; i < numCPUs; i++) {
-//     cluster.fork();
-//   }
-
-//   cluster.on("exit", (worker, code, signal) => {
-//     console.log(`worker ${worker.process.pid} died`);
-//     cluster.fork();
-//   });
-// } else {
-//   mongoose
-//     .connect(dbUrl)
-//     .then(() => {
-//       console.log("Mongo connected");
-//       app.listen(port, () => {
-//         console.log(`connected server: ${process.pid} to port: ${port}`);
-//       });
-//     })
-//     .catch((e) => {
-//       console.log("Mongo Error");
-//       console.log(e);
-//     });
-// }
 mongoose
   .connect(dbUrl)
   .then(() => {
@@ -68,10 +45,12 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(compression());
+app.use(minify({ cache: __dirname + "/cache" }));
 app.use(favicon(path.join(__dirname, "public", "fevicon", "favicon.ico")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
+
 app.use(mongoSanitize());
 
 const store = MongoStore.create({
@@ -182,25 +161,36 @@ app.get("/fakeuser", async (req, res) => {
   res.send(userRegister);
 });
 
-app.use("/", userRoute);
-app.use("/campgrounds", campgroundRoute);
-app.use("/campgrounds/:id/reviews", reviewsRoute);
-
-app.get("/", (req, res) => {
-  res.render("campgrounds/home");
-});
-
-app.all("*", (req, res, next) => {
-  return next(new ExpressError("Page not found", 404));
-});
-
-app.use((err, req, res, next) => {
-  const { statusCode = 500 } = err;
-  if (!err.message) {
-    err.message = "Oops Something Went Wrong";
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
   }
-  res.status(statusCode).render("error", { err });
-});
-app.listen(port, () => {
-  console.log(`Listening to port ${port}`);
-});
+  cluster.on("exit", (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} else {
+  app.use("/", userRoute);
+  app.use("/campgrounds", campgroundRoute);
+  app.use("/campgrounds/:id/reviews", reviewsRoute);
+
+  app.get("/", (req, res) => {
+    res.render("campgrounds/home");
+  });
+
+  app.all("*", (req, res, next) => {
+    return next(new ExpressError("Page not found", 404));
+  });
+
+  app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) {
+      err.message = "Oops Something Went Wrong";
+    }
+    res.status(statusCode).render("error", { err });
+  });
+  app.listen(port, () => {
+    console.log(`Listening to port ${port}`);
+  });
+}
