@@ -14,6 +14,10 @@ module.exports.isLoggedIn = (req, res, next) => {
 
 module.exports.campgroundValidation = (req, res, next) => {
   const { error } = validateSchema.validate(req.body);
+  if (isNaN(req.body.campground.price)) {
+    req.flash("error", "price must be a number");
+    return res.redirect("/campgrounds/new");
+  }
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);

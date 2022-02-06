@@ -7,23 +7,23 @@
         <div class="mb-3">
           <label class="form-label" for="title">Title</label>
           <input class="form-control" id="title" name="campground[title]" type="text" required />
-          <div class="invalid-feedback">Please enter title</div>
+          <div class="invalid-feedback">Please enter a title</div>
           <div class="valid-feedback">Looks good!</div>
         </div>
         <div class="mb-3">
           <label class="form-label" for="price">Campground Price</label>
           <div class="input-group">
             <span class="input-group-text" id="basic-addon1">$</span>
-            <input type="string" id="price" name="campground[price]" class="form-control" placeholder="Price"
+            <input type="text" id="price" name="campground[price]" class="form-control" placeholder="Price"
               aria-label="Price" aria-describedby="basic-addon1" required />
-            <div class="invalid-feedback">Please enter price</div>
+            <div class="invalid-feedback">Please enter a valid price</div>
             <div class="valid-feedback">Looks good!</div>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label" for="location">Location</label>
           <input class="form-control" id="location" name="campground[location]" type="text" required />
-          <div class="invalid-feedback">Please enter location</div>
+          <div class="invalid-feedback">Please enter a location</div>
           <div class="valid-feedback">Looks good!</div>
         </div>
 
@@ -37,7 +37,7 @@
           <label class="form-label" for="description">Description</label>
           <textarea class="form-control" id="description" name="campground[description]" type="text"
             required></textarea>
-          <div class="invalid-feedback">Please enter Description</div>
+          <div class="invalid-feedback">Please enter a Description</div>
           <div class="valid-feedback">Looks good!</div>
         </div>
         <div class="mb-3"><button class="btn btn-success submit">Submit</button></div>

@@ -71,7 +71,12 @@ module.exports.createNewCampground = async (req, res, next) => {
       limit: 1,
     })
     .send();
+  
   const newCamp = new Campground(req.body.campground);
+  if (!geoLocation.body.features.length) {
+    req.flash("error", "Please enter a valid location");
+    return res.redirect("/campgrounds/new");
+  }
   newCamp.geometry = geoLocation.body.features[0].geometry;
   newCamp.images = req.files.map((file) => ({ url: file.path, name: file.filename }));
   if (!newCamp.images.length) {
