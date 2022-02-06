@@ -29,39 +29,39 @@ const userRoute = require("./routes/users");
 const port = process.env.PORT || 3000;
 const dbUrl = process.env.MONGO_DB_URL || "mongodb://localhost:27017/yelp-camp";
 
-if (cluster.isMaster) {
-  console.log(`Master ${process.pid} is running`);
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
+// if (cluster.isMaster) {
+//   console.log(`Master ${process.pid} is running`);
+//   for (let i = 0; i < numCPUs; i++) {
+//     cluster.fork();
+//   }
 
-  cluster.on("exit", (worker, code, signal) => {
-    console.log(`worker ${worker.process.pid} died`);
-    cluster.fork();
-  });
-} else {
-  mongoose
-    .connect(dbUrl)
-    .then(() => {
-      console.log("Mongo connected");
-      app.listen(port, () => {
-        console.log(`connected server: ${process.pid} to port: ${port}`);
-      });
-    })
-    .catch((e) => {
-      console.log("Mongo Error");
-      console.log(e);
-    });
-}
-// mongoose
-//   .connect(dbUrl)
-//   .then(() => {
-//     console.log("Mongo connected");
-//   })
-//   .catch((e) => {
-//     console.log("Mongo Error");
-//     console.log(e);
+//   cluster.on("exit", (worker, code, signal) => {
+//     console.log(`worker ${worker.process.pid} died`);
+//     cluster.fork();
 //   });
+// } else {
+//   mongoose
+//     .connect(dbUrl)
+//     .then(() => {
+//       console.log("Mongo connected");
+//       app.listen(port, () => {
+//         console.log(`connected server: ${process.pid} to port: ${port}`);
+//       });
+//     })
+//     .catch((e) => {
+//       console.log("Mongo Error");
+//       console.log(e);
+//     });
+// }
+mongoose
+  .connect(dbUrl)
+  .then(() => {
+    console.log("Mongo connected");
+  })
+  .catch((e) => {
+    console.log("Mongo Error");
+    console.log(e);
+  });
 app.engine("ejs", ejsMethod);
 
 app.set("view engine", "ejs");
@@ -201,6 +201,6 @@ app.use((err, req, res, next) => {
   }
   res.status(statusCode).render("error", { err });
 });
-// app.listen(port, () => {
-//   console.log(`Listening to port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Listening to port ${port}`);
+});
