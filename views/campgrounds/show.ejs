@@ -92,7 +92,7 @@
               <div class="card-body py-1">
                 <div class="col">
                   <h5 class="card-title">
-                    @<%= review.owner.username %>
+                    <a href="/user/<%= review.owner._id %>">@<%= review.owner.username %></a>
                   </h5>
                   <h6 class="card-subtitle mb-2 text-muted">
                     <p class="starability-result mt-3" data-rating="<%= review.rating %>">

@@ -121,3 +121,8 @@ a {
 .back-btn:hover .fa-arrow-left {
   transform: translateX(-4px);
 }
+
+.github-svg,
+.linkdin-svg {
+  width: 60px;
+}
