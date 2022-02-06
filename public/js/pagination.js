@@ -30,27 +30,27 @@ if (paginate) {
   });
 }
 
-const generateCampground = function (campground) {
+const generateCampground = function (camp) {
   htmlTemplate = `<div class="card mb-2" id="index-card">
       <div class="row">
         <div class="col-md-4">
             <img src="${
-              campground.images.length
-                ? campground.images[0].url
+              camp.images.length
+                ? camp.images[0].url
                 : "https://images.unsplash.com/photo-1471115853179-bb1d604434e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
             }" class="img-fluid card-image" />
         </div>
         <div class="col-md-8 m-auto py-2 px-4 p-md-0">
           <h5 class="card-title">
-            ${campground.title}
+            ${camp.title}
           </h5>
           <p class="card-text">
-            ${campground.description}
+            ${camp.description}
           </p>
           <p>---<small class="text-muted">
-              ${campground.location}
+              ${camp.location}
             </small></p>
-          <a href="/campgrounds/${campground._id}" class="btn btn-dark camp-viewMore">View Camp <i
+          <a href="/campgrounds/${camp._id}" class="btn btn-dark camp-viewMore">View Camp <i
                     class="fas fa-angle-double-right"></i></a>
         </div>
       </div>

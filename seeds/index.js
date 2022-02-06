@@ -17,7 +17,7 @@ const dbUrl = process.env.MONGO_DB_URL;
 //  || "mongodb://localhost:27017/yelp-camp";
 
 mongoose
-  .connect(dbUrl)
+  .connect("mongodb://localhost:27017/yelp-camp")
   .then(() => {
     console.log("Mongo connected");
   })
