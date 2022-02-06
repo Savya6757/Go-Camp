@@ -40,7 +40,7 @@ const generateCampground = function (campground) {
                 : "https://images.unsplash.com/photo-1471115853179-bb1d604434e0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
             }" class="img-fluid card-image" />
         </div>
-        <div class="col-md-8 py-3">
+        <div class="col-md-8 m-auto py-2 px-4 p-md-0">
           <h5 class="card-title">
             ${campground.title}
           </h5>

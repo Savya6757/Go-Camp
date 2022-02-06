@@ -106,7 +106,7 @@ a {
 }
 
 #index-card:hover {
-  transform: translateX(15px);
+  transform: scale(1.02);
   box-shadow: 5px 5px 10px gray;
 }
 
