@@ -62,12 +62,12 @@
             More <i class="fas fa-chevron-circle-down mx-1"></i></a></div>
         <% } %>
           <a href="#" class="btn up-btn"><i class="fas fa-arrow-up"></i></a>
-          <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
           <script src="/js/random.js"></script>
           <script>
             const mapToken = "<%-process.env.MAP_BOX_TOKEN%>"
             const campgroundsMap = { features:<%-JSON.stringify(campForMap) %>}
           </script>
-          <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
           <script src="/js/pagination.js"></script>
+          <link href='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css' rel='stylesheet' />
+          <script src='https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js'></script>
           <script src="/js/clusterMap.js"></script>
