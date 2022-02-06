@@ -1,7 +1,7 @@
 <% layout("layout/boilerplate") %>
     <div class="row">
         <div class="col-md-4 text-center">
-            <img src="/images/user.jpg" class="img-thumbnail" alt="">
+            <img src="/images/user.jpg" class="img-thumbnail" alt="profile image">
             <h2>
                 @<%= user.username %>
             </h2>
@@ -18,7 +18,7 @@
                         <div class="card">
                             <% if(campground.images.length){ %>
                                 <img src="<%=campground.images[0].url%>" class="card-img-top profile-card-image"
-                                    alt="...">
+                                    alt="campground image">
                                 <% } %>
                                     <div class="card-body">
                                         <h5 class="card-title">
