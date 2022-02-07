@@ -52,7 +52,7 @@
           <div class="row">
             <% camp.images.forEach((img,i)=>{ %>
               <div class="col-md-4 mb-5 delete-image-div text-center">
-                <img src="<%= img.thumbnail %>" class="delete-image">
+                <img src="<%= img.thumbnail %>" class="delete-image" alt="campground to delete">
                 <label for="img-<%=i %>"><i class="fas fa-trash fa-4x"></i></label>
                 <input class="form-check-input mt-3" type="checkbox" value="<%= img.name %>" id="img-<%= i %>"
                   name="deleteImages[]">
